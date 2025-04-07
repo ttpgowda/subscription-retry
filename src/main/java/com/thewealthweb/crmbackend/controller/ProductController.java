@@ -2,6 +2,7 @@ package com.thewealthweb.crmbackend.controller;
 
 import com.thewealthweb.crmbackend.model.ProductDTO;
 import com.thewealthweb.crmbackend.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         try {
             ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
