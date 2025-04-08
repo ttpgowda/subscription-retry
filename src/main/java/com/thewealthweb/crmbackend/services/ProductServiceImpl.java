@@ -1,4 +1,4 @@
-package com.thewealthweb.crmbackend.service;
+package com.thewealthweb.crmbackend.services;
 
 import com.thewealthweb.crmbackend.model.Product;
 import com.thewealthweb.crmbackend.model.ProductDTO;

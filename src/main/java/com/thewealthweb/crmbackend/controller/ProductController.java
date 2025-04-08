@@ -1,7 +1,7 @@
 package com.thewealthweb.crmbackend.controller;
 
 import com.thewealthweb.crmbackend.model.ProductDTO;
-import com.thewealthweb.crmbackend.service.ProductService;
+import com.thewealthweb.crmbackend.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
