@@ -1,3 +1,16 @@
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/crm
+#    username: postgres
+#    password: root
+#    driver-class-name: org.postgresql.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/crm
@@ -7,5 +20,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
+    properties:
+      hibernate.multiTenancy: DISCRIMINATOR  # TEMP: we override this later to use DISCRIMINATOR programmatically

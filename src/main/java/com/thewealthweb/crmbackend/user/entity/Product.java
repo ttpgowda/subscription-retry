@@ -1,10 +1,11 @@
-package com.thewealthweb.crmbackend.model;
+package com.thewealthweb.crmbackend.user.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.annotations.TenantId;
 
 @Data
 @Builder
@@ -20,5 +21,8 @@ public class Product {
     private String name;
     private String description;
     private double price;
+
+    @TenantId
+    private String tenant;
 
 }

@@ -1,8 +1,8 @@
-package com.thewealthweb.crmbackend.services;
+package com.thewealthweb.crmbackend.user.service;
 
-import com.thewealthweb.crmbackend.model.Product;
-import com.thewealthweb.crmbackend.model.ProductDTO;
-import com.thewealthweb.crmbackend.repository.ProductRepository;
+import com.thewealthweb.crmbackend.user.entity.Product;
+import com.thewealthweb.crmbackend.user.dto.ProductDTO;
+import com.thewealthweb.crmbackend.user.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

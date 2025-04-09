@@ -1,7 +1,7 @@
-package com.thewealthweb.crmbackend.error;
+package com.thewealthweb.crmbackend.common.exceptions.error;
 
-import com.thewealthweb.crmbackend.exception.DepartmentNotFoundException;
-import com.thewealthweb.crmbackend.model.ErrorMessage;
+import com.thewealthweb.crmbackend.common.exceptions.exception.DepartmentNotFoundException;
+import com.thewealthweb.crmbackend.common.dto.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

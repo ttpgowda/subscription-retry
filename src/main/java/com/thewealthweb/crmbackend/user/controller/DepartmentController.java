@@ -1,6 +1,6 @@
-package com.thewealthweb.crmbackend.controller;
+package com.thewealthweb.crmbackend.user.controller;
 
-import com.thewealthweb.crmbackend.exception.DepartmentNotFoundException;
+import com.thewealthweb.crmbackend.common.exceptions.exception.DepartmentNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

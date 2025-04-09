@@ -19,25 +19,33 @@ public class LoggerAspect {
     private final Logger logger = Logger.getLogger(LoggerAspect.class.getName());
 
     @Around("execution(* com.thewealthweb.crmbackend.services.*.*(..))")
-    public void log(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info(joinPoint.getSignature().toString() + " method execution start");
         Instant start = Instant.now();
-        joinPoint.proceed();
+
+        Object result = joinPoint.proceed(); // ✅ Save and return this
+
         Instant finish = Instant.now();
         long timeElapsed = Duration.between(start, finish).toMillis();
-        logger.info("Time took to execute the method : "+timeElapsed);
+        logger.info("Time took to execute the method : " + timeElapsed);
         logger.info(joinPoint.getSignature().toString() + " method execution end");
+
+        return result; // ✅ Important!
     }
 
     @Around("@annotation(com.thewealthweb.crmbackend.LogAspect)")
-    public void logWithAnnotation(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logWithAnnotation(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info(joinPoint.toString() + " method execution start");
         Instant start = Instant.now();
-        joinPoint.proceed();
+
+        Object result = joinPoint.proceed();
+
         Instant finish = Instant.now();
         long timeElapsed = Duration.between(start, finish).toMillis();
-        logger.info("Time took to execute the method : "+timeElapsed);
+        logger.info("Time took to execute the method : " + timeElapsed);
         logger.info(joinPoint.getSignature().toString() + " method execution end");
+
+        return result;
     }
 
     @AfterThrowing(value = "execution(* com.thewealthweb.crmbackend.services.*.*(..))",throwing = "ex")

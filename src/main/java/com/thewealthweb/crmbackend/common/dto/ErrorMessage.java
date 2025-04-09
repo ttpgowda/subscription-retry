@@ -1,4 +1,4 @@
-package com.thewealthweb.crmbackend.model;
+package com.thewealthweb.crmbackend.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

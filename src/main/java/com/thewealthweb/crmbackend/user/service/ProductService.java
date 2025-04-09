@@ -1,7 +1,7 @@
-package com.thewealthweb.crmbackend.services;
+package com.thewealthweb.crmbackend.user.service;
 
 
-import com.thewealthweb.crmbackend.model.ProductDTO;
+import com.thewealthweb.crmbackend.user.dto.ProductDTO;
 
 import java.util.List;
 import java.util.Optional;
