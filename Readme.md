@@ -1,5 +1,10 @@
-#### File Structure need to maintain 
 
+### Chat Reference 
+```
+https://chatgpt.com/c/67f6890f-7da4-8013-ae9c-2f997e50f28e
+```
+
+#### File Structure need to maintain
 ```
 com.yourcompany.yourapp
 │
@@ -59,4 +64,43 @@ com.yourcompany.yourapp
 #### For getting the File Structure
 ```
 /F /A > project-structure.txt
+```
+
+#### Security Flow Summary Flow (Step-by-Step)
+
+```
+[1] Login Request (email, password, tenantId)
+    ↓
+[2] Authenticate user (email + tenant filter)
+    ↓
+[3] Generate JWT with tenantId + role
+    ↓
+[4] Return JWT to client
+    ↓
+[5] Client sends JWT in Authorization header for all requests
+    ↓
+[6] JWT Filter:
+    - Validates token
+    - Sets Authentication
+    - Sets current tenant
+    ↓
+[7] Access Secured Endpoint (Service auto-scopes tenant using @TenantId)
+```
+
+#### Security Stages
+
+```
+Step	Feature	Required?	Notes
+1️⃣	Basic Spring Security	        ✅	Enable SecurityFilterChain
+2️⃣	CORS	                        ✅	Allow frontend access
+3️⃣	CSRF	                        ✅	Disable for APIs
+4️⃣	Custom UserDetailsService	    ✅	Load user from DB
+5️⃣	BCrypt Password Encoder	        ✅	Secure passwords
+6️⃣	JWT Provider	                ✅	Generate/validate tokens
+7️⃣	JWT Filter	                    ✅	Authenticate on every request
+8️⃣	AuthController	                ✅	Login endpoint
+9️⃣	Role-Based Authorization	    ✅	Restrict API access
+🔟	Session Stateless	            ✅	Required for JWT
+1️⃣1️⃣	Global Exception Handler	✅	Handle 403/401 gracefully
+1️⃣2️⃣	OAuth2	Optional	        ✅   Only if using Google, GitHub, etc.
 ```
