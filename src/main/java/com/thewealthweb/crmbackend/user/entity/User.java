@@ -3,7 +3,6 @@ package com.thewealthweb.crmbackend.user.entity;
 import com.thewealthweb.crmbackend.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.TenantId;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +20,6 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @TenantId
     @Column(nullable = false)
     private String tenantId; // or "tenantId" to match Tenant
 
