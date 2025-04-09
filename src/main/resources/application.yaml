@@ -24,3 +24,7 @@ spring:
     show-sql: true
     properties:
       hibernate.multiTenancy: DISCRIMINATOR  # TEMP: we override this later to use DISCRIMINATOR programmatically
+
+logging:
+  level:
+    org.springframework.security: DEBUG
