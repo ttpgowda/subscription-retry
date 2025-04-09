@@ -23,7 +23,7 @@ public class User extends BaseEntity {
 
     @TenantId
     @Column(nullable = false)
-    private String clinic; // or "tenantId" to match Tenant
+    private String tenantId; // or "tenantId" to match Tenant
 
     @Column(unique = true, nullable = false)
     private String username;

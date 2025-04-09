@@ -104,3 +104,8 @@ Step	Feature	Required?	Notes
 1️⃣1️⃣	Global Exception Handler	✅	Handle 403/401 gracefully
 1️⃣2️⃣	OAuth2	Optional	        ✅   Only if using Google, GitHub, etc.
 ```
+
+#### Skipping the tenantFilter when needed
+```
+Skip filter using EntityManager.unwrap(Session.class).disableFilter("tenantFilter")
+```

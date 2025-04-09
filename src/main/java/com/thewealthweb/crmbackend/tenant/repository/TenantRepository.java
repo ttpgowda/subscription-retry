@@ -1,4 +1,4 @@
-package com.thewealthweb.crmbackend.user.repository;
+package com.thewealthweb.crmbackend.tenant.repository;
 
 import com.thewealthweb.crmbackend.tenant.entity.Tenant;
 import org.springframework.data.jpa.repository.JpaRepository;
