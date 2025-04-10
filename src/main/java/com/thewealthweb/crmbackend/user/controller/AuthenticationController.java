@@ -7,10 +7,7 @@ import com.thewealthweb.crmbackend.user.repository.UserRepository;
 import com.thewealthweb.crmbackend.user.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -39,4 +36,14 @@ public class AuthenticationController {
         return ResponseEntity.ok(authService.refreshAccessToken(refreshToken));
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestParam String username) {
+        authService.logout(username);
+        return ResponseEntity.ok("Logged out successfully");
+    }
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@RequestParam String username, @RequestParam String newPassword) {
+        authService.changePassword(username, newPassword);
+        return ResponseEntity.ok("Password changed successfully");
+    }
 }

@@ -49,4 +49,7 @@ public class RefreshTokenService {
         return refreshTokenRepository.findByToken(token);
     }
 
+    public void deleteByUser(User user) {
+        refreshTokenRepository.deleteByUser(user);
+    }
 }
