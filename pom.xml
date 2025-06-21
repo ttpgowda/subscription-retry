@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.thewealthweb</groupId>
-	<artifactId>crm-backend</artifactId>
+	<artifactId>sr-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>crm-backend</name>
-	<description>Backend module for CRM application</description>
+	<name>sr-backend</name>
+	<description>Backend module Subscrption retry application</description>
 	<url/>
 	<licenses>
 		<license/>
