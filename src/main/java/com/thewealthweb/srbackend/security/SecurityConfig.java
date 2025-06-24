@@ -21,6 +21,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -41,8 +43,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/auth/refresh").permitAll()
+                        // === Stripe OAuth Endpoints ===
+                        .requestMatchers(antMatcher("/stripe/oauth/callback")).permitAll() // Stripe redirects here, no auth token yet
+                        .requestMatchers(antMatcher("/stripe/oauth/connect")).authenticated() // User must be logged into your app
+                        .requestMatchers(antMatcher("/stripe/oauth/data/**")).authenticated() // Data fetching requires login
+                        // ==============================
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(ex -> ex
                         .accessDeniedHandler(customAccessDeniedHandler)
