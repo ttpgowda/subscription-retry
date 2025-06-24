@@ -63,7 +63,8 @@ com.yourcompany.yourapp
 
 #### For getting the File Structure
 ```
-/F /A > project-structure.txt
+tree /F /A > project-structure.txt
+
 ```
 
 #### Security Flow Summary Flow (Step-by-Step)
