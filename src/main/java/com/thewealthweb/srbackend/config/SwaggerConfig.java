@@ -16,7 +16,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("CRM API").version("1.0"));
+                .info(new Info().title("Subscription Retry").version("1.0"));
     }
 
     @Bean
