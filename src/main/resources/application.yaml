@@ -10,7 +10,6 @@
 #      ddl-auto: update
 #    show-sql: true
 
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/crm
@@ -28,3 +27,29 @@ spring:
 logging:
   level:
     org.springframework.security: DEBUG
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080 # Adjust to your actual JWT issuer URI
+
+# Stripe credential.
+stripe:
+  connect:
+    client-id: ca_YOUR_STRIPE_CLIENT_ID # Replace with your actual Stripe Connect Client ID (starts with ca_)
+    client-secret: sk_test_YOUR_STRIPE_SECRET_KEY # Replace with your actual Stripe Secret Key (sk_test_ or sk_live_)
+    redirect-uri: http://localhost:8080/stripe/oauth/callback # Must match registered URI in Stripe dashboard
+    scope: read_write # Or a more restrictive scope if needed, e.g., read_only, read_write
+    # Example for encrypting tokens in DB (using Jasypt or similar)
+    # encryption-key: ${ENCRYPTION_KEY} # For encrypting/decrypting Stripe access tokens
+
+#jasypt
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTION_PASSWORD} # IMPORTANT: Use environment variable in production!
+    algorithm: PBEWithOpenSSLOrCFR320BitAES # Recommended algorithm
+    # Other optional configs (check Jasypt docs for more)
+    # iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+    # salt-generator-classname: org.jasypt.salt.RandomSaltGenerator

@@ -1,6 +1,7 @@
 package com.thewealthweb.srbackend.user.entity;
 
 import com.thewealthweb.srbackend.common.entity.BaseEntity;
+import com.thewealthweb.srbackend.tenant.entity.Tenant;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +21,9 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String tenantId; // or "tenantId" to match Tenant
+    @ManyToOne(fetch = FetchType.LAZY) // Many Users to One Tenant
+    @JoinColumn(name = "tenant_id", nullable = false) // This creates the foreign key column named 'tenant_id'
+    private Tenant tenant;
 
     @Column(unique = true, nullable = false)
     private String username;
