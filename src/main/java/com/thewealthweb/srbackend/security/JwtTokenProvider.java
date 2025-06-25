@@ -25,7 +25,7 @@ public class JwtTokenProvider {
                 .setSubject(userDetails.getUsername())
                 .claim("roles", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .claim("tenantId", customUserDetails.getUser().getTenantId())
+                .claim("tenantId", customUserDetails.getUser().getTenant().getTenantId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

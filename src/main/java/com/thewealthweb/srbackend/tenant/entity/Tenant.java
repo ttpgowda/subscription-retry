@@ -27,4 +27,6 @@ public class Tenant extends BaseEntity {
     private String phone;
 
     private boolean active = true;
+
+    private String subDomain;
 }

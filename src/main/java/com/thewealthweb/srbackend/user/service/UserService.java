@@ -1,6 +1,8 @@
 package com.thewealthweb.srbackend.user.service;
 
 
+import com.thewealthweb.srbackend.tenant.entity.Tenant;
+import com.thewealthweb.srbackend.tenant.repository.TenantRepository;
 import com.thewealthweb.srbackend.user.dto.UserDTO;
 import com.thewealthweb.srbackend.user.entity.User;
 import com.thewealthweb.srbackend.user.entity.Role;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +23,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleServiceHelper roleServiceHelper;
     private final PasswordEncoder passwordEncoder;
+    private final TenantRepository tenantRepository;
 
     public User createUser(UserDTO dto) {
+
+        // 1. Fetch the Tenant entity using the logical tenant ID from the DTO
+        //    We use findByTenantId, which you added to TenantRepository earlier.
+        Tenant tenant = tenantRepository.findByTenantId(dto.getTenantId())
+                .orElseThrow(() -> new IllegalArgumentException("Tenant not found with ID: " + dto.getTenantId()));
+
         Set<Role> roles = roleServiceHelper.resolveRolesOrDefault(dto.getRoles());
 
         User user = User.builder()
@@ -29,7 +39,7 @@ public class UserService {
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .email(dto.getEmail())
                 .fullName(dto.getFullName())
-                .tenantId(dto.getTenantId())
+                .tenant(tenant)
                 .enabled(dto.isEnabled())
                 .roles(roles)
                 .build();
