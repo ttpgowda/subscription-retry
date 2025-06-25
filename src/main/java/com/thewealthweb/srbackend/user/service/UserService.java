@@ -7,6 +7,7 @@ import com.thewealthweb.srbackend.user.dto.UserDTO;
 import com.thewealthweb.srbackend.user.entity.User;
 import com.thewealthweb.srbackend.user.entity.Role;
 import com.thewealthweb.srbackend.user.helper.RoleServiceHelper;
+import com.thewealthweb.srbackend.user.mapper.UserMapper;
 import com.thewealthweb.srbackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,7 @@ public class UserService {
     private final RoleServiceHelper roleServiceHelper;
     private final PasswordEncoder passwordEncoder;
     private final TenantRepository tenantRepository;
+    private final UserMapper userMapper;
 
     public User createUser(UserDTO dto) {
 
@@ -51,13 +53,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
+    public UserDTO getUserById(Long id) {
+        User user =  userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
+        return userMapper.toDto(user);
     }
 
     public User updateUser(Long id, UserDTO dto) {
-        User existingUser = getUserById(id);
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
         existingUser.setUsername(dto.getUsername());
         existingUser.setEmail(dto.getEmail());
         existingUser.setFullName(dto.getFullName());
@@ -76,7 +82,8 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        User user = getUserById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
         userRepository.delete(user);
     }
 }
