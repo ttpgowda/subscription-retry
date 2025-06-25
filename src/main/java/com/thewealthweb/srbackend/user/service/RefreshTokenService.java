@@ -6,7 +6,6 @@ import com.thewealthweb.srbackend.user.repository.RefreshTokenRepository;
 import com.thewealthweb.srbackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -23,10 +22,8 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
 
-    public RefreshToken createRefreshToken(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
+    // In RefreshTokenService
+    public RefreshToken createRefreshToken(User user) { // Change parameter type from String username to User user
         Optional<RefreshToken> existingTokenOpt = refreshTokenRepository.findByUser(user);
 
         RefreshToken refreshToken = existingTokenOpt.orElse(new RefreshToken());
