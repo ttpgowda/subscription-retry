@@ -1,25 +1,13 @@
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/crm
-#    username: postgres
-#    password: root
-#    driver-class-name: org.postgresql.Driver
-#
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/crm
-    username: postgres
-    password: root
+    url: jdbc:postgresql://${DATASOURCE_URL}/${DATASOURCE_DATABASE}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate.multiTenancy: DISCRIMINATOR  # TEMP: we override this later to use DISCRIMINATOR programmatically
@@ -28,19 +16,18 @@ logging:
   level:
     org.springframework.security: DEBUG
 
-
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080 # Adjust to your actual JWT issuer URI
+          issuer-uri: ${SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI} # Adjust to your actual JWT issuer URI
 
 # Stripe credential.
 stripe:
   connect:
-    client-id: ca_YOUR_STRIPE_CLIENT_ID # Replace with your actual Stripe Connect Client ID (starts with ca_)
-    client-secret: sk_test_YOUR_STRIPE_SECRET_KEY # Replace with your actual Stripe Secret Key (sk_test_ or sk_live_)
-    redirect-uri: http://localhost:8080/stripe/oauth/callback # Must match registered URI in Stripe dashboard
+    client-id: ${CLIENT_ID} # Replace with your actual Stripe Connect Client ID (starts with ca_)
+    client-secret: ${SECRET_KEY} # Replace with your actual Stripe Secret Key (sk_test_ or sk_live_)
+    redirect-uri: ${REDIRECT_URI} # Must match registered URI in Stripe dashboard
     scope: read_write # Or a more restrictive scope if needed, e.g., read_only, read_write
     # Example for encrypting tokens in DB (using Jasypt or similar)
     # encryption-key: ${ENCRYPTION_KEY} # For encrypting/decrypting Stripe access tokens
