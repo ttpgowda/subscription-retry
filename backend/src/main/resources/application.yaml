@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DATASOURCE_URL}/${DATASOURCE_DATABASE}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate.multiTenancy: DISCRIMINATOR  # TEMP: we override this later to use DISCRIMINATOR programmatically
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI} # Adjust to your actual JWT issuer URI
+
+# Stripe credential.
+stripe:
+  connect:
+    client-id: ${CLIENT_ID} # Replace with your actual Stripe Connect Client ID (starts with ca_)
+    client-secret: ${SECRET_KEY} # Replace with your actual Stripe Secret Key (sk_test_ or sk_live_)
+    redirect-uri: ${REDIRECT_URI} # Must match registered URI in Stripe dashboard
+    scope: read_write # Or a more restrictive scope if needed, e.g., read_only, read_write
+    # Example for encrypting tokens in DB (using Jasypt or similar)
+    # encryption-key: ${ENCRYPTION_KEY} # For encrypting/decrypting Stripe access tokens
+
+#jasypt
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTION_PASSWORD} # IMPORTANT: Use environment variable in production!
+    algorithm: PBEWithOpenSSLOrCFR320BitAES # Recommended algorithm
+    # Other optional configs (check Jasypt docs for more)
+    # iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+    # salt-generator-classname: org.jasypt.salt.RandomSaltGenerator
+
+
+# Jwt secret
+jwt:
+  secret: ${JWT_SECRET}
