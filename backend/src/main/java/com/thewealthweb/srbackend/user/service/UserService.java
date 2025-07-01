@@ -49,8 +49,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        List<User> users=  userRepository.findAll();
+
+        return userMapper.toDtoList(users);
     }
 
     public UserDTO getUserById(Long id) {

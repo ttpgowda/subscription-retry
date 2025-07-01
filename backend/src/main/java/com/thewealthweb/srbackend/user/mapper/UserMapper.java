@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named; // For custom mapping methods
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,8 @@ public interface UserMapper {
 
     // If you need to map a list/set of entities
     Set<UserDTO> toDtoSet(Set<User> users);
+
+    List<UserDTO> toDtoList(List<User> users);
 
     // Custom mapping method for converting Set<Role> to Set<String>
     @Named("rolesToNames")
