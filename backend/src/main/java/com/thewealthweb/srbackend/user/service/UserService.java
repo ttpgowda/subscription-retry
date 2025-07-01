@@ -1,6 +1,5 @@
 package com.thewealthweb.srbackend.user.service;
 
-
 import com.thewealthweb.srbackend.tenant.entity.Tenant;
 import com.thewealthweb.srbackend.tenant.repository.TenantRepository;
 import com.thewealthweb.srbackend.user.dto.UserDTO;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +60,7 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public User updateUser(Long id, UserDTO dto) {
+    public UserDTO updateUser(Long id, UserDTO dto) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 
@@ -80,7 +78,8 @@ public class UserService {
             existingUser.setRoles(roles);
         }
 
-        return userRepository.save(existingUser);
+        User savedUser = userRepository.save(existingUser);
+        return userMapper.toDto(savedUser); // ✅ Map to DTO before returning
     }
 
     public void deleteUser(Long id) {

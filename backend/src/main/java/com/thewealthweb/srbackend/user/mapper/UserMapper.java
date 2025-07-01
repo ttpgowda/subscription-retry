@@ -5,7 +5,7 @@ import com.thewealthweb.srbackend.user.entity.Role;
 import com.thewealthweb.srbackend.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named; // For custom mapping methods
+import org.mapstruct.Named;
 
 import java.util.List;
 import java.util.Set;

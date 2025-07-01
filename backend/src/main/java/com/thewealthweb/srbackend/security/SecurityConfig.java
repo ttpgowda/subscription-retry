@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/auth/refresh").permitAll()
+//                        .requestMatchers("/api/users/me").permitAll()
                         // === Stripe OAuth Endpoints ===
                         .requestMatchers(antMatcher("/stripe/oauth/callback")).permitAll() // Stripe redirects here, no auth token yet
                         .requestMatchers(antMatcher("/stripe/oauth/connect")).authenticated() // User must be logged into your app

@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Many Users to One Tenant
+    @ManyToOne(fetch = FetchType.EAGER) // Many Users to One Tenant
     @JoinColumn(name = "tenant_id", nullable = false) // This creates the foreign key column named 'tenant_id'
 //    @TenantId
     private Tenant tenant;

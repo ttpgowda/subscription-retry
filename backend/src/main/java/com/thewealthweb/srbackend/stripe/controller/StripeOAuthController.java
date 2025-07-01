@@ -3,10 +3,13 @@ package com.thewealthweb.srbackend.stripe.controller;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Subscription;
 import com.thewealthweb.srbackend.common.dto.ErrorMessage;
+import com.thewealthweb.srbackend.security.CustomUserDetails;
 import com.thewealthweb.srbackend.stripe.dto.StripeAccessTokenResponse;
 import com.thewealthweb.srbackend.stripe.service.StripeOAuthService;
 import com.thewealthweb.srbackend.tenant.config.TenantContext;
+import com.thewealthweb.srbackend.user.dto.UserDTO;
 import com.thewealthweb.srbackend.user.entity.User;
+import com.thewealthweb.srbackend.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.List;
 public class StripeOAuthController {
 
     private final StripeOAuthService stripeOAuthService;
+    private final UserMapper userMapper;
 
     /**
      * Endpoint to initiate the Stripe Connect OAuth flow.
@@ -53,13 +57,16 @@ public class StripeOAuthController {
     // ... (rest of the controller methods remain largely the same, they rely on TenantContext) ...
 
     @GetMapping("/data/subscriptions")
-    public ResponseEntity<?> getStripeSubscriptions(@AuthenticationPrincipal User currentUser) {
-        if (currentUser == null) {
+    public ResponseEntity<?> getStripeSubscriptions(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        if (userDetails == null) {
             return new ResponseEntity<>(new ErrorMessage(403,"Unauthorized", "User not authenticated"), HttpStatus.UNAUTHORIZED);
         }
+        User user = userDetails.getUser(); // access your entity
+        System.out.println("before:: TenantContext::getTenantId: "+ TenantContext.getTenantId());
+        UserDTO userDTO = userMapper.toDto(user);
         // Ensure tenant context is set for the current user's tenant
-        TenantContext.setTenantId(currentUser.getTenant().getTenantId()); // Set the String logicalTenantId
-
+        TenantContext.setTenantId(userDTO.getTenantId()); // Set the String logicalTenantId
+        System.out.println("getTenantId: " + TenantContext.getTenantId());
         try {
             List<Subscription> subscriptions = stripeOAuthService.fetchAllSubscriptions();
             return ResponseEntity.ok(subscriptions);
@@ -70,8 +77,8 @@ public class StripeOAuthController {
             TenantContext.clear();
         }
     }
-// In StripeOAuthController.java, inside stripeOAuthCallback method
 
+    // In StripeOAuthController.java, inside stripeOAuthCallback method
     @GetMapping("/callback")
     public RedirectView stripeOAuthCallback(
             @RequestParam("code") String code,
