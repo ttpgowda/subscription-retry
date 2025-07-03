@@ -5,7 +5,9 @@ import com.thewealthweb.srbackend.user.dto.LoginRequest;
 import com.thewealthweb.srbackend.user.dto.RegisterRequest;
 import com.thewealthweb.srbackend.user.repository.UserRepository;
 import com.thewealthweb.srbackend.user.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,4 +48,14 @@ public class AuthenticationController {
         authService.changePassword(username, newPassword);
         return ResponseEntity.ok("Password changed successfully");
     }
+
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
 }
