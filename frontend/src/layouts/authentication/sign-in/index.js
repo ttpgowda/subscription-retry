@@ -40,9 +40,64 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import CustomSnackbar from "../../../assets/theme-dark/components/CustomSnackbar";
+import { useNavigate } from "react-router-dom";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
+
+  const navigate = useNavigate(); // ✅ Must be inside the component
+
+  const [formData, setFormData] = useState({ username: "", password: "" });
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("info");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Tenant-ID": "dev-tenant", // Replace this appropriately
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      console.log("data: ", data);
+
+      if (res.ok) {
+        console.log("Access Token:", data.accessToken);
+        console.log("Refresh Token:", data.refreshToken);
+
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Login successful!");
+        setSnackbarOpen(true);
+
+        // Delay for snackbar before navigating
+        setTimeout(() => navigate("/dashboard"), 1000);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage(data.message || "Login failed.");
+        setSnackbarOpen(true);
+      }
+    } catch (err) {
+      setSnackbarSeverity("error");
+      setSnackbarMessage("Network error. Please try again.");
+      setSnackbarOpen(true);
+    }
+  };
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -63,31 +118,29 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid>
+          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}></Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput
+                type="email"
+                label="Email"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                fullWidth
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                fullWidth
+              />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -102,28 +155,19 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                sign in
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleLogin}>
+                Sign in
               </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/sign-up"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Sign up
-                </MDTypography>
-              </MDTypography>
             </MDBox>
           </MDBox>
         </MDBox>
       </Card>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+      />
     </BasicLayout>
   );
 }
