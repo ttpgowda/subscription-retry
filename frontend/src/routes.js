@@ -46,6 +46,7 @@ import SignIn from "layouts/authentication/sign-in";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import PrivateRoute from "./routes/PrivateRoute";
+import CreateTenant from "./layouts/admin/create-tenant";
 
 const routes = [
   {
@@ -103,6 +104,18 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+  },
+  {
+    type: "collapse", // Or just a plain route if not in sidebar
+    name: "Create Tenant",
+    key: "create-tenant",
+    icon: <Icon fontSize="small">group_add</Icon>, // Use an appropriate icon
+    route: "/admin/create-tenant",
+    component: (
+      <PrivateRoute>
+        <CreateTenant />
+      </PrivateRoute>
+    ),
   },
 ];
 

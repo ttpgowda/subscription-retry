@@ -145,7 +145,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   <Icon sx={iconsStyle}>account_circle</Icon>
                 </IconButton>
               </Link>*/}
-              <AccountMenu />
+
               <IconButton
                 size="small"
                 disableRipple
@@ -179,6 +179,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon sx={iconsStyle}>notifications</Icon>
               </IconButton>
               {renderMenu()}
+              <AccountMenu />
             </MDBox>
           </MDBox>
         )}

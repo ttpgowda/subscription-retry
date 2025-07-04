@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// MUI & Material Dashboard
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
-import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
@@ -110,26 +107,45 @@ function Basic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   return (
+    // BasicLayout: Background set to a very light, warm off-white or subtle texture
     <BasicLayout image={bgImage}>
       <Card>
+        {/* Header MDBox: Integrated, no protruding gradient */}
         <MDBox
-          variant="gradient"
-          bgColor="info"
-          borderRadius="lg"
-          coloredShadow="info"
+          // Removed gradient and coloredShadow for a minimalist look.
+          // Option 1: Just padding and text color
           mx={2}
-          mt={-3}
-          p={2}
-          mb={1}
+          pt={4} // More top padding for breathing room
+          pb={2} // Padding below the title
           textAlign="center"
         >
-          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+          <MDTypography
+            variant="h4"
+            fontWeight="bold"
+            color="info" // Use info color for the main title
+          >
             Sign in
           </MDTypography>
+          {/* Optional: A subtle divider */}
+          <MDBox
+            sx={{
+              width: "50px",
+              height: "2px",
+              backgroundColor: (theme) => theme.palette.info.main, // Use your info color
+              margin: "8px auto 0 auto", // Centered below title
+              borderRadius: "2px",
+            }}
+          />
         </MDBox>
-        <MDBox pt={4} pb={3} px={3}>
+
+        {/* Form Content */}
+        <MDBox pt={3} pb={3} px={3}>
+          {" "}
+          {/* Adjusted padding */}
           <MDBox component="form" role="form">
-            <MDBox mb={2}>
+            <MDBox mb={3}>
+              {" "}
+              {/* Increased margin bottom for spacing between inputs */}
               <MDInput
                 type="email"
                 label="Email"
@@ -137,9 +153,14 @@ function Basic() {
                 value={formData.username}
                 onChange={handleChange}
                 fullWidth
+                // Assuming MDInput takes these props for styling
+                // variant="outlined" // Explicitly use outlined if available for clear borders
+                // focusColor="info" // Color of border/label on focus
               />
             </MDBox>
-            <MDBox mb={2}>
+            <MDBox mb={3}>
+              {" "}
+              {/* Increased margin bottom */}
               <MDInput
                 type="password"
                 label="Password"
@@ -147,22 +168,22 @@ function Basic() {
                 value={formData.password}
                 onChange={handleChange}
                 fullWidth
+                // variant="outlined"
+                // focusColor="info"
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+
+            <MDBox mt={5} mb={1}>
+              {" "}
+              {/* Increased top margin for button */}
+              <MDButton
+                variant="contained" // Solid fill button
+                color="info"
+                fullWidth
+                onClick={handleLogin}
+                borderRadius="md" // Ensure consistent rounded corners
+                sx={{ paddingY: 1.5 }} // Slightly increased vertical padding for a more substantial button
               >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
-            </MDBox>
-            <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={handleLogin}>
                 Sign in
               </MDButton>
             </MDBox>

@@ -4,13 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63476128-77c4-481f-b5e1-c0f56ffa2ece" name="Changes" comment="">
+    <list default="true" id="63476128-77c4-481f-b5e1-c0f56ffa2ece" name="Changes" comment="even in signin page check to token function">
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/controller/TenantOnboardingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/dto/TenantOnboardingRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/service/TenantOnboardingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layouts/admin/create-tenant/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/common/exceptions/error/CustomResponseEntityExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/common/exceptions/error/CustomResponseEntityExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/security/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/security/JwtTokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/config/TenantFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/config/TenantFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/controller/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/tenant/controller/TenantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/controller/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/thewealthweb/srbackend/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/Navbars/DashboardNavbar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/Navbars/DashboardNavbar/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layouts/authentication/sign-in/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/authentication/sign-in/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +61,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\dev\\subscription-retry\\subscription-retry-repo\\frontend\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -73,11 +87,46 @@
       <workItem from="1751298283305" duration="1275000" />
       <workItem from="1751380723943" duration="994000" />
       <workItem from="1751386902910" duration="3331000" />
-      <workItem from="1751390269753" duration="3700000" />
+      <workItem from="1751390269753" duration="6004000" />
+      <workItem from="1751467722334" duration="3623000" />
+      <workItem from="1751481318102" duration="715000" />
+      <workItem from="1751553607052" duration="8395000" />
+      <workItem from="1751645751845" duration="5501000" />
     </task>
+    <task id="LOCAL-00001" summary="added .idea to git ignore!">
+      <option name="closed" value="true" />
+      <created>1751566407956</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751566407956</updated>
+    </task>
+    <task id="LOCAL-00002" summary="logout ready">
+      <option name="closed" value="true" />
+      <created>1751567014348</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751567014348</updated>
+    </task>
+    <task id="LOCAL-00003" summary="even in signin page check to token function">
+      <option name="closed" value="true" />
+      <created>1751567880307</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1751567880307</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added .idea to git ignore!" />
+    <MESSAGE value="logout ready" />
+    <MESSAGE value="even in signin page check to token function" />
+    <option name="LAST_COMMIT_MESSAGE" value="even in signin page check to token function" />
   </component>
 </project>
