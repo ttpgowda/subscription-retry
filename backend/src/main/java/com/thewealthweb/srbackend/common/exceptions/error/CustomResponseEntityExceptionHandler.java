@@ -37,4 +37,17 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(message);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessage> handleIllegalArgumentException(IllegalArgumentException exception, WebRequest request) {
+
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage(),
+                request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(message);
+    }
 }

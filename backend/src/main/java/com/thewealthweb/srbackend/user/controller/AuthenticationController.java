@@ -52,6 +52,7 @@ public class AuthenticationController {
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(HttpServletRequest request) {
         String token = jwtTokenProvider.resolveToken(request);
+        System.out.println("validateToken::token: "  +token);
         if (token != null && jwtTokenProvider.validateToken(token)) {
             return ResponseEntity.ok().build();
         }
