@@ -109,7 +109,7 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getRoutes = (allRoutes) =>
+  /*  const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.collapse) {
         return getRoutes(route.collapse);
@@ -120,6 +120,19 @@ export default function App() {
       }
 
       return null;
+    });*/
+
+  const getRoutes = (allRoutes) =>
+    allRoutes.flatMap((route) => {
+      if (route.collapse) {
+        return getRoutes(route.collapse); // Recursive call returns flat array
+      }
+
+      if (route.route) {
+        return <Route exact path={route.route} element={route.component} key={route.key} />;
+      }
+
+      return [];
     });
 
   const configsButton = (
